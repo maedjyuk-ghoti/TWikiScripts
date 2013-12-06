@@ -15,8 +15,8 @@ a TWiki instance clean.
 
 ------------
 
-DESCRIPTION OF THE SCRIPTS
-==========================
+Descriptions
+============
 
 setuptest.sh controls the directories that are processed in the the 2 main scripts.
 
