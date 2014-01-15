@@ -26,6 +26,7 @@ function ignoreFiles {
 		WebSearchAdvanced) ;;
 		WebSearch) ;;
 		WebStatistics) ;;
+		WebTopicList) ;;
 		WebTopMenu) ;;
 		KBase*) ;;
 		ActionLog*) ;;
@@ -40,7 +41,7 @@ function ignoreFiles {
 # Check to see if there are directories to move documents from and to
 if [ "$#" -ne 1 ]
 then
-	echo "Usage: $0 <full_path_to_dir_to_move>"
+	echo "Usage: $0 <full_path_dir>"
 	exit 1
 fi
 
@@ -78,6 +79,7 @@ do
 	#  ".txt,v" will always come after ".txt". Also, there should be no ".txt,v" in the twiki without
 	#  a corresponding ".txt" because ".txt,v" is a type of version control.
 
+
 	# Needs to have the same name as its related .txt files	
 	if [ "$back" == "txt,v" ]
 	then
@@ -88,6 +90,9 @@ do
 	# If this is the original (Just a way to limit searches)
 	if [ "$back" == "txt" ]
 	then
+		# Add in KBase Table
+		#echo $dirName $front.$back
+		addkbasetable.sh -s $dirName $front.$back
 
 		# Give the file a KBase name and move to CSOKBase
 		epoc=`date +%s`
@@ -108,15 +113,6 @@ do
 
 		KBaseName="KBaseU$epoc.$back"
 
-		# Add the KBase Table to end of file
-		echo " " >> $newDirName/$KBaseName
-		echo %META:FORM{name=\"KBaseFieldTable\"}% >> $newDirName/$KBaseName
-		echo %META:FIELD{name=\"KBaseTitle\" attributes=\"\" title=\"KBaseTitle\" value=\"$front\"}% >> $newDirName/$KBaseName
-		echo %META:FIELD{name=\"KBaseReviewDate\" attributes=\"\" title=\"KBaseReviewDate\" value=\"\"}% >> $newDirName/$KBaseName
-		echo %META:FIELD{name=\"KBaseOwner\" attributes=\"\" title=\"KBaseOwner\" value=\"\"}% >> $newDirName/$KBaseName
-		echo %META:FIELD{name=\"KBaseAreaGroup\" attributes=\"\" title=\"KBaseAreaGroup\" value=\"\"}% >> $newDirName/$KBaseName
-		echo %META:FIELD{name=\"KBaseKeywords\" attributes=\"\" title=\"KBaseKeywords\" value=\"\"}% >> $newDirName/$KBaseName
-
 		# Ensure different file names
 		sleep 1
 	fi
@@ -125,3 +121,4 @@ done
 
 # Change directory to CSOKBase if it begins with KBaseU
 sed -i "s/\[\[KBaseU/\[\[CSOKBase.KBaseU/g" $dirName/*
+

@@ -13,10 +13,10 @@ then
 	exit 1
 fi
 
-sed -i "s/\[\[https:\/\/twiki\.clemson\.edu\/bin\/view\//\[\[/g" $1/*
+sed -i 's/\[\[https:\/\/twiki\.clemson\.edu\/bin\/view\//\[\[/g' $1/*
 
 # Remove directory name if it exists in the same directory
-array=(${1//\// })
-length=${#array[@]}
-length=$((length - 1))
+array=(${1//\// })      #seperate the given path by the '/' mark
+length=${#array[@]}     #obtain the number of elements in the array
+length=$((length - 1))  #locate the part that we will use with sed
 sed -i "s/\[\[${array[${length}]}[./]/\[\[/g" $1/*
