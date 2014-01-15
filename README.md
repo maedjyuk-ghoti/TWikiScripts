@@ -25,3 +25,6 @@ removeurl.sh replaces urls used in the twiki with twiki links to make the twiki 
 kbasetransfer moves the files from the given directory into the CSOKBase, gives them a KBaseU name, changes all links
 to the file to point to its new name, and inserts the KBase table at the bottom to allow searching through the KBase
 search tool.
+
+addkbasetable appends a kbase table to a given file, filling in the owning group and title based on the full path name
+passed to it.
