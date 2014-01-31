@@ -44,11 +44,14 @@ else
 	exit 1
 fi
 
+#Get date for KBaseReviewDate
+r_date=$(date -v+6m +"%Y-%m-%d")
+
 #Append the KBase table to the end of the file
 echo " " >> $DirName/$FileName
 echo %META:FORM{name=\"KBaseFieldTable\"}% >> $DirName/$FileName
 echo %META:FIELD{name=\"KBaseTitle\" attributes=\"\" title=\"KBaseTitle\" value=\"$file\"}% >> $DirName/$FileName
-echo %META:FIELD{name=\"KBaseReviewDate\" attributes=\"\" title=\"KBaseReviewDate\" value=\"\"}% >> $DirName/$FileName
+echo %META:FIELD{name=\"KBaseReviewDate\" attributes=\"\" title=\"KBaseReviewDate\" value=\"$r_date\"}% >> $DirName/$FileName
 echo %META:FIELD{name=\"KBaseOwner\" attributes=\"\" title=\"KBaseOwner\" value=\"\"}% >> $DirName/$FileName
 echo %META:FIELD{name=\"KBaseAreaGroup\" attributes=\"\" title=\"KBaseAreaGroup\" value=\"$dir\"}% >> $DirName/$FileName
 echo %META:FIELD{name=\"KBaseKeywords\" attributes=\"\" title=\"KBaseKeywords\" value=\"\"}% >> $DirName/$FileName
