@@ -1,7 +1,7 @@
 #! /bin/bash
 
-# Removes "https://twiki.clemson.edu/bin/view/" from url links in twiki
-#  This allows the twiki to be viewable offline
+# Removes a specified url from the url links in twiki
+#  This allows a twiki to be more viewable offline
 #
 # Usage: removeurl.sh <directory_name>
 #
@@ -9,11 +9,15 @@
 
 if [ "$#" -ne 1 ]
 then
-	echo "Usage: $0 <directory_to_look_in>"
-	exit 1
+        echo "Usage: $0 <directory_to_look_in>"
+        exit 1
 fi
 
-sed -i 's/\[\[https:\/\/twiki\.clemson\.edu\/bin\/view\//\[\[/g' $1/*
+# Replace 'address to remove>'. Make sure to escape
+#  characters where applicable (eg: '.', '/', '\')
+# ex 'https://twiki.clemson.edu/bin/view/' becomes
+#    'https:\/\/twiki\.clemson\.edu\/bin\/view\/'
+sed -i 's/\[\[<address to remove>/\[\[/g' $1/*
 
 # Remove directory name if it exists in the same directory
 array=(${1//\// })      #seperate the given path by the '/' mark
